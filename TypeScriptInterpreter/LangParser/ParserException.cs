@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Interpreter.LangParser;
+namespace TypeScriptInterpreter.LangParser;
 
 public class ParserException : Exception
 {

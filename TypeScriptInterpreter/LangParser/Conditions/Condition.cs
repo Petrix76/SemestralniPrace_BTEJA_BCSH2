@@ -1,6 +1,6 @@
-﻿using Interpreter.Context;
+﻿using TypeScriptInterpreter.Context;
 
-namespace Interpreter.LangParser.Conditions;
+namespace TypeScriptInterpreter.LangParser.Conditions;
 
 public abstract class Condition
 {

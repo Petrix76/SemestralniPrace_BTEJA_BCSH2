@@ -1,6 +1,6 @@
-﻿using Interpreter.Tokenizer;
+﻿using TypeScriptInterpreter.Tokenizer;
 
-namespace Interpreter.LangParser;
+namespace TypeScriptInterpreter.LangParser;
 
 public class Var
 {

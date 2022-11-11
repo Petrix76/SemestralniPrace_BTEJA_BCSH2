@@ -1,13 +1,13 @@
-﻿using Interpreter.Context;
-using Interpreter.LangParser.Conditions;
-using Interpreter.LangParser.Expressions;
-using Interpreter.LangParser.Statements;
-using Interpreter.Tokenizer;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.LangParser.Conditions;
+using TypeScriptInterpreter.LangParser.Expressions;
+using TypeScriptInterpreter.LangParser.Statements;
+using TypeScriptInterpreter.Tokenizer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Interpreter.LangParser;
+namespace TypeScriptInterpreter.LangParser;
 
 public class Parser
 {
@@ -192,8 +192,8 @@ public class Parser
         CheckRightParen();
 
         List<Statement> statements = new List<Statement>();
-        List<Statement> elseIfStatements = new List<Statement>();
-        Statement? elseStatement = null;
+        List<ElseIfStatement> elseIfStatements = new List<ElseIfStatement>();
+        ElseStatement? elseStatement = null;
 
         CheckLeftBrace();
         while (!Match(TokenType.RIGHT_BRACE)) statements.Add(ReadStatement());
@@ -215,7 +215,7 @@ public class Parser
         return new IfStatement(condition, statements, elseIfStatements, elseStatement);
     }
 
-    private Statement ReadElseStatement()
+    private ElseStatement ReadElseStatement()
     {
         List<Statement> statements = new List<Statement>();
         CheckLeftBrace();
@@ -225,7 +225,7 @@ public class Parser
         return new ElseStatement(statements);
     }
 
-    private Statement ReadElseIfStatement()
+    private ElseIfStatement ReadElseIfStatement()
     {
         CheckTokenType(TokenType.IF);
         CheckLeftParen();

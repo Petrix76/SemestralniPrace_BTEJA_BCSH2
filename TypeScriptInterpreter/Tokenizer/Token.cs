@@ -1,4 +1,4 @@
-﻿namespace Interpreter.Tokenizer;
+﻿namespace TypeScriptInterpreter.Tokenizer;
 
 public class Token
 {

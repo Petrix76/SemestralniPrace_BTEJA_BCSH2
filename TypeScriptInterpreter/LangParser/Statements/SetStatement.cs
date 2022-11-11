@@ -1,8 +1,9 @@
-﻿using Interpreter.Context;
-using Interpreter.LangParser.Expressions;
-using Interpreter.Tokenizer;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.LangParser.Expressions;
+using TypeScriptInterpreter.Results;
+using TypeScriptInterpreter.Tokenizer;
 
-namespace Interpreter.LangParser.Statements;
+namespace TypeScriptInterpreter.LangParser.Statements;
 
 public class SetStatement : Statement
 {
@@ -15,14 +16,11 @@ public class SetStatement : Statement
     public string Ident { get; }
     public Expression Expression { get; }
 
-    public override void Evaluate(InterpreterExecutionContext context)
+    public override StatementResult Evaluate(InterpreterExecutionContext context)
     {
-        InterpreterExecutionContext globalContext = context;
-        while (!globalContext.Variables.HasVar(Ident) && globalContext.GlobalContext is not null)
-        {
-            globalContext = globalContext.GlobalContext;
-        }
+        Variables variables = context.SearchForVariableContext(Ident);
+        variables.Set(Ident, Expression.Evaluate(context));
 
-        globalContext.Variables.Set(Ident, Expression.Evaluate(context));
+        return StatementResult.OkResult();
     }
 }

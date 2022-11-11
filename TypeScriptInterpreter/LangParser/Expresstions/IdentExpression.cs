@@ -1,7 +1,7 @@
-﻿using Interpreter.Context;
-using Interpreter.Tokenizer;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.Tokenizer;
 
-namespace Interpreter.LangParser.Expressions;
+namespace TypeScriptInterpreter.LangParser.Expressions;
 
 public class IdentExpression : Expression
 {
@@ -12,13 +12,9 @@ public class IdentExpression : Expression
         Ident = ident.Lexeme;
     }
 
-    public override double Evaluate(InterpreterExecutionContext context)
+    public override object Evaluate(InterpreterExecutionContext context)
     {
-        while (!context.Variables.HasVar(Ident) && context.GlobalContext is not null)
-        {
-            context = context.GlobalContext;
-        }
-
-        return context.Variables.Get(Ident);
+        Variables variables = context.SearchForVariableContext(Ident);
+        return variables.Get(Ident).Value;    
     }
 }

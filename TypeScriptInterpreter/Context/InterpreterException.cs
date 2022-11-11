@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Interpreter.Context;
+namespace TypeScriptInterpreter.Context;
 
 public class InterpreterException : Exception
 {

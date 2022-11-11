@@ -1,12 +1,13 @@
-﻿using Interpreter.Context;
-using Interpreter.LangParser.Conditions;
+﻿using TypeScriptInterpreter.Context;
 using System.Collections.Generic;
+using TypeScriptInterpreter.LangParser.Conditions;
+using TypeScriptInterpreter.Results;
 
-namespace Interpreter.LangParser.Statements;
+namespace TypeScriptInterpreter.LangParser.Statements;
 
 public class IfStatement : Statement
 {
-    public IfStatement(Condition condition, List<Statement> statements, List<Statement> elseIfStatements, Statement? elseStatement)
+    public IfStatement(Condition condition, List<Statement> statements, List<ElseIfStatement> elseIfStatements, ElseStatement? elseStatement)
     {
         Condition = condition;
         Statements = statements;
@@ -16,17 +17,38 @@ public class IfStatement : Statement
 
     public Condition Condition { get; }
     public List<Statement> Statements { get; }
-    public List<Statement> ElseIfStatements { get; }
-    public Statement? ElseStatement { get; }
+    public List<ElseIfStatement> ElseIfStatements { get; }
+    public ElseStatement? ElseStatement { get; }
 
-    public override void Evaluate(InterpreterExecutionContext context)
+    public override StatementResult Evaluate(InterpreterExecutionContext context)
     {
+        StatementResult statementResult = StatementResult.OkResult();
+
         if (Condition.Evaluate(context))
         {
-            foreach (Statement s in Statements)
+            foreach (var statement in Statements)
             {
-                s.Evaluate(context);
+                statementResult = statement.Evaluate(context);
+
+                if (!statementResult.IsOk()) return statementResult;
+            }
+            return statementResult;
+        }
+
+        foreach (ElseIfStatement elseIfStatement in ElseIfStatements)
+        {
+            if (elseIfStatement.Condition.Evaluate(context))
+            {
+                statementResult = elseIfStatement.Evaluate(context);
+                return statementResult;
             }
         }
+
+        if (ElseStatement is not null)
+        {
+            statementResult = ElseStatement.Evaluate(context);
+        }
+
+        return statementResult;
     }
 }

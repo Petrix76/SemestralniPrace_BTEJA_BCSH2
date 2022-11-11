@@ -1,7 +1,7 @@
-﻿using Interpreter.Context;
-using Interpreter.LangParser.Expressions;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.LangParser.Expressions;
 
-namespace Interpreter.LangParser
+namespace TypeScriptInterpreter.LangParser
 {
     internal class GroupExpression : Expression
     {
@@ -12,7 +12,7 @@ namespace Interpreter.LangParser
             this.expression = expression;
         }
 
-        public override double Evaluate(InterpreterExecutionContext context)
+        public override object Evaluate(InterpreterExecutionContext context)
         {
             return expression.Evaluate(context);
         }

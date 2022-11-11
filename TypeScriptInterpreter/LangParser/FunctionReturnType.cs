@@ -1,4 +1,4 @@
-﻿namespace Interpreter.LangParser;
+﻿namespace TypeScriptInterpreter.LangParser;
 
 public enum FunctionReturnType
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Interpreter.Tokenizer;
+namespace TypeScriptInterpreter.Tokenizer;
 
 public class Lexer
 {
@@ -130,7 +130,7 @@ public class Lexer
 
             Advance();
 
-            string value = source.Substring(start + 1, current - start - 1);
+            string value = source.Substring(start + 1, current - start - 2);
             addToken(TokenType.STRING, value);
     }
 
@@ -160,9 +160,11 @@ public class Lexer
             Advance();
 
             while (IsDigit(Peek())) Advance();
+            addToken(TokenType.NUMBER, double.Parse(source.Substring(start, current - start)));
+            return;
         }
 
-        addToken(TokenType.NUMBER, double.Parse(source.Substring(start, current - start)));
+        addToken(TokenType.NUMBER, int.Parse(source.Substring(start, current - start)));
     }
 
     private char Peek()

@@ -1,23 +1,35 @@
-﻿using Interpreter.Context;
-using Interpreter.LangParser.Conditions;
-using Interpreter.LangParser.Statements;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.LangParser.Conditions;
+using TypeScriptInterpreter.LangParser.Statements;
 using System.Collections.Generic;
+using TypeScriptInterpreter.Results;
 
-namespace Interpreter.LangParser.Statements;
+namespace TypeScriptInterpreter.LangParser.Statements;
 
-internal class ElseIfStatement : Statement
+public class ElseIfStatement : Statement
 {
-    private Condition condition;
-    private List<Statement> statements;
+    public Condition Condition { get; }
+    public List<Statement> Statements { get; }
 
     public ElseIfStatement(Condition condition, List<Statement> statements)
     {
-        this.condition = condition;
-        this.statements = statements;
+        Condition = condition;
+        Statements = statements;
     }
 
-    public override void Evaluate(InterpreterExecutionContext context)
+    public override StatementResult Evaluate(InterpreterExecutionContext context)
     {
-        throw new System.NotImplementedException();
+        StatementResult statementResult = StatementResult.OkResult();
+        if (Condition.Evaluate(context))
+        {
+            foreach (var statement in Statements)
+            {
+                statementResult = statement.Evaluate(context);
+
+                if (!statementResult.IsOk()) return statementResult;
+            }
+        }
+
+        return statementResult;
     }
 }

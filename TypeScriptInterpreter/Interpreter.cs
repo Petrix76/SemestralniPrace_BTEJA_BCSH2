@@ -1,5 +1,5 @@
-using Interpreter.LangParser;
-using Interpreter.Tokenizer;
+using TypeScriptInterpreter.LangParser;
+using TypeScriptInterpreter.Tokenizer;
 using System.Collections.Generic;
 using System.IO;
 
@@ -7,10 +7,9 @@ namespace TypeScriptInterpreter;
 
 public class Interpreter
 {
-    public void Interpret()
+    public void Interpret(string? path)
     {
-        string path = Path.Combine(Directory.GetCurrentDirectory(), "kod.txt");
-
+        if (path == null) return;
         if (File.Exists(path))
         {
             string readText = File.ReadAllText(path);
@@ -19,7 +18,7 @@ public class Interpreter
 
             Parser parser = new Parser(tokens);
             Block program = parser.Parse();
-            //program.Evaluate();
+            program.Evaluate();
         }
     } 
 }

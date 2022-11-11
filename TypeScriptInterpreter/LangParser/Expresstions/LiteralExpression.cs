@@ -1,7 +1,7 @@
-﻿using Interpreter.Context;
-using Interpreter.Tokenizer;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.Tokenizer;
 
-namespace Interpreter.LangParser.Expressions;
+namespace TypeScriptInterpreter.LangParser.Expressions;
 
 public class LiteralExpression : Expression
 {
@@ -14,8 +14,8 @@ public class LiteralExpression : Expression
         TokenType = tokenType;
     }
 
-    public override double Evaluate(InterpreterExecutionContext context)
+    public override object Evaluate(InterpreterExecutionContext context)
     {
-        return (double) Literal;
+        return Literal;
     }
 }

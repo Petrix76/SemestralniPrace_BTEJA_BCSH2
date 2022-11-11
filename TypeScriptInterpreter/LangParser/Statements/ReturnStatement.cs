@@ -1,7 +1,9 @@
-﻿using Interpreter.Context;
-using Interpreter.LangParser.Expressions;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.LangParser.Expressions;
+using TypeScriptInterpreter.Results;
+using TypeScriptInterpreter.Results.ResultEnums;
 
-namespace Interpreter.LangParser.Statements;
+namespace TypeScriptInterpreter.LangParser.Statements;
 
 internal class ReturnStatement : Statement
 {
@@ -12,8 +14,9 @@ internal class ReturnStatement : Statement
 
     public Expression? Expression { get; }
 
-    public override void Evaluate(InterpreterExecutionContext context)
+    public override StatementResult Evaluate(InterpreterExecutionContext context)
     {
-        throw new System.NotImplementedException();
+        if (Expression == null) return new StatementResult(StatementResultEnum.EMPTY_RETURN);
+        return new StatementResult(Expression, StatementResultEnum.RETURN);
     }
 }

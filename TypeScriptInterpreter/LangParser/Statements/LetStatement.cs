@@ -1,8 +1,9 @@
-﻿using Interpreter.Context;
-using Interpreter.LangParser.Expressions;
-using Interpreter.LangParser.Statements;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.LangParser.Expressions;
+using TypeScriptInterpreter.LangParser.Statements;
+using TypeScriptInterpreter.Results;
 
-namespace Interpreter.LangParser
+namespace TypeScriptInterpreter.LangParser
 {
     internal class LetStatement : Statement
     {
@@ -17,9 +18,30 @@ namespace Interpreter.LangParser
             Expr = expr;
         }
 
-        public override void Evaluate(InterpreterExecutionContext context)
+        public override StatementResult Evaluate(InterpreterExecutionContext context)
         {
-            throw new System.NotImplementedException();
+            StatementResult statementResult = StatementResult.OkResult();
+            object v = Expr.Evaluate(context);
+
+            if (v.GetType() == typeof(int) && VarType == VarType.INT)
+            {
+                context.Variables.Add(Lexeme, v, VarType);
+                return statementResult;
+            }
+
+            if (v.GetType() == typeof(double) && VarType == VarType.FLOAT)
+            {
+                context.Variables.Add(Lexeme, v, VarType);
+                return statementResult;
+            }
+
+            if (v.GetType() == typeof(string) && VarType == VarType.STRING)
+            {
+                context.Variables.Add(Lexeme, v, VarType);
+                return statementResult;
+            }
+
+            throw new ExecutionException($"Cannot assign {v.GetType().Name} to {VarType}");
         }
     }
 }

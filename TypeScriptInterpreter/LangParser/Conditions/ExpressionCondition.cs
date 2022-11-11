@@ -1,7 +1,7 @@
-﻿using Interpreter.Context;
-using Interpreter.LangParser.Conditions;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.LangParser.Conditions;
 
-namespace Interpreter.LangParser
+namespace TypeScriptInterpreter.LangParser
 {
     internal class ExpressionCondition : Condition
     {
@@ -14,9 +14,9 @@ namespace Interpreter.LangParser
 
         public override bool Evaluate(InterpreterExecutionContext context)
         {
-            double v = expr.Evaluate(context);
+            object v = expr.Evaluate(context);
 
-            if (v == 0) return false;
+            if (v == null) return false;
             return true;
         }
     }

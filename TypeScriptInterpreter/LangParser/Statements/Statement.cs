@@ -1,8 +1,9 @@
-﻿using Interpreter.Context;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.Results;
 
-namespace Interpreter.LangParser.Statements;
+namespace TypeScriptInterpreter.LangParser.Statements;
 
 public abstract class Statement
 {
-    public abstract void Evaluate(InterpreterExecutionContext context);
+    public abstract StatementResult Evaluate(InterpreterExecutionContext context);
 }

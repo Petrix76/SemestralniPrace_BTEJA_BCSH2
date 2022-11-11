@@ -1,7 +1,7 @@
-﻿using Interpreter.Context;
-using Interpreter.Tokenizer;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.Tokenizer;
 
-namespace Interpreter.LangParser.Expressions;
+namespace TypeScriptInterpreter.LangParser.Expressions;
 
 public class UnaryExpression : Expression
 {
@@ -14,13 +14,24 @@ public class UnaryExpression : Expression
         Right = right;
     }
 
-    public override double Evaluate(InterpreterExecutionContext context)
+    public override object Evaluate(InterpreterExecutionContext context)
     {
+        object v = Right.Evaluate(context);
         if (OperatorVar.Type.Equals(TokenType.MINUS))
         {
-            return -Right.Evaluate(context);
+            if (v.GetType() == typeof(int))
+            {
+                return -(int)v;
+            }
+
+            if (v.GetType() == typeof(double))
+            {
+                return -(double)v;
+            }
+
+            throw new ExecutionException("Minus operator cannot be infront of string");
         }
 
-        return Right.Evaluate(context);
+        return v;
     }
 }

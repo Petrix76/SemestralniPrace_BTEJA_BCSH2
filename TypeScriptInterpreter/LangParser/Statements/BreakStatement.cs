@@ -1,12 +1,14 @@
-﻿using Interpreter.Context;
-using Interpreter.LangParser.Statements;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.LangParser.Statements;
+using TypeScriptInterpreter.Results;
+using TypeScriptInterpreter.Results.ResultEnums;
 
-namespace Interpreter.LangParser.Statements;
+namespace TypeScriptInterpreter.LangParser.Statements;
 
 public class BreakStatement : Statement
 {
-    public override void Evaluate(InterpreterExecutionContext context)
+    public override StatementResult Evaluate(InterpreterExecutionContext context)
     {
-        throw new System.NotImplementedException();
+        return new StatementResult(StatementResultEnum.BREAK);
     }
 }

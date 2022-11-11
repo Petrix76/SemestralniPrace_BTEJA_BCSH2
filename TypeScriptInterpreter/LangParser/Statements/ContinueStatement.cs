@@ -1,11 +1,13 @@
-﻿using Interpreter.Context;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.Results;
+using TypeScriptInterpreter.Results.ResultEnums;
 
-namespace Interpreter.LangParser.Statements;
+namespace TypeScriptInterpreter.LangParser.Statements;
 
 public class ContinueStatement : Statement
 {
-    public override void Evaluate(InterpreterExecutionContext context)
+    public override StatementResult Evaluate(InterpreterExecutionContext context)
     {
-        throw new System.NotImplementedException();
+        return new StatementResult(StatementResultEnum.CONTINUE);
     }
 }

@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Semestralka"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="542" Width="800">
+    <Grid Focusable="False">
+        <Button Content="Uložit" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="36" Width="87" Click="SaveButtonClicked"/>
+        <Button Content="Načíst" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Height="36" Width="87" Click="LoadButtonClicked"/>
+        <Button Content="Spustit" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" Height="36" Width="87" Click="RunButtonClicked"/>
+        <ScrollViewer Focusable="False" Margin="102,10,10,0" Height="336" VerticalAlignment="Top">
+            <TextBox AcceptsReturn="True" x:Name="CodeTextBox" TextWrapping="Wrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontSize="20"/>
+        </ScrollViewer>
+        <ScrollViewer Focusable="False" Margin="102,351,10,10">
+            <TextBox AcceptsReturn="True" x:Name="ConsoleTextBox" TextWrapping="Wrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontSize="20"/>
+        </ScrollViewer>
 
     </Grid>
 </Window>

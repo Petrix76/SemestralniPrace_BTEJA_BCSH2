@@ -1,39 +1,53 @@
-﻿using Interpreter.LangParser;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using TypeScriptInterpreter.LangParser;
 
-namespace Interpreter.Context;
+namespace TypeScriptInterpreter.Context;
 
 public class Variables
 {
-    public List<Var> Vars { get; private set; }
-
-    public Variables(List<Var> vars)
-    {
-        Vars = vars;
-    }
+    public List<Var> Vars { get; private set; } = new List<Var>();
 
     public bool HasVar(string varName)
     {
         return Vars.Exists(var => var.Ident.Equals(varName));
     }
 
-    public double Get(string varName)
+    public Var Get(string varName)
     {
         if (HasVar(varName))
         {
-            return (double) Vars.First(var => var.Ident.Equals(varName)).Value;
+            return Vars.First(var => var.Ident.Equals(varName));
         }
 
         throw new InterpreterException("Variable does not exist in this context.");
     }
 
-    public void Set(string varName, double newValue)
+    public void Set(string varName, object newValue)
     {
         if (HasVar(varName))
         {
-            Vars.First(var => var.Ident.Equals(varName)).Value = newValue;
-            return;
+            Var variable = Get(varName);
+
+            if (newValue.GetType() == typeof(string) && variable.Type == VarType.STRING)
+            {
+                Vars.First(var => var.Ident.Equals(varName)).Value = newValue;
+                return;
+            }
+
+            if (newValue.GetType() == typeof(int) && variable.Type == VarType.INT)
+            {
+                Vars.First(var => var.Ident.Equals(varName)).Value = newValue;
+                return;
+            }
+
+            if (newValue.GetType() == typeof(double) && variable.Type == VarType.FLOAT)
+            {
+                Vars.First(var => var.Ident.Equals(varName)).Value = newValue;
+                return;
+            }
+
+            throw new ExecutionException($"Cannot assign {newValue.GetType().Name} to {variable.Type}");
         }
 
         throw new InterpreterException("Variable does not exist in this context.");

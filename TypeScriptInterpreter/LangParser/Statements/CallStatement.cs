@@ -1,9 +1,9 @@
-﻿using Interpreter.Context;
-using Interpreter.LangParser.Expressions;
-using Interpreter.LangParser.Statements;
-using Interpreter.Tokenizer;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.LangParser.Expressions;
+using TypeScriptInterpreter.LangParser.Statements;
+using TypeScriptInterpreter.Results;
 
-namespace Interpreter.LangParser
+namespace TypeScriptInterpreter.LangParser
 {
     internal class CallStatement : Statement
     {
@@ -16,9 +16,10 @@ namespace Interpreter.LangParser
             Expression = expression;
         }
 
-        public override void Evaluate(InterpreterExecutionContext context)
+        public override StatementResult Evaluate(InterpreterExecutionContext context)
         {
-            throw new System.NotImplementedException();
+            Expression.Evaluate(context);
+            return StatementResult.OkResult();
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using Interpreter.Context;
+﻿using TypeScriptInterpreter.Context;
 
-namespace Interpreter.LangParser
+namespace TypeScriptInterpreter.LangParser
 {
     public interface Evaluatable
     {
-        double Evaluate(InterpreterExecutionContext context);
+        object Evaluate(InterpreterExecutionContext context);
     }
 }

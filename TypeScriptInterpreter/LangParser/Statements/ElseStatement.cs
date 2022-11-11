@@ -1,11 +1,12 @@
-﻿using Interpreter.Context;
-using Interpreter.LangParser.Conditions;
-using Interpreter.LangParser.Statements;
+﻿using TypeScriptInterpreter.Context;
+using TypeScriptInterpreter.LangParser.Conditions;
+using TypeScriptInterpreter.LangParser.Statements;
 using System.Collections.Generic;
+using TypeScriptInterpreter.Results;
 
-namespace Interpreter.LangParser.Statements;
+namespace TypeScriptInterpreter.LangParser.Statements;
 
-internal class ElseStatement : Statement
+public class ElseStatement : Statement
 {
     public List<Statement> Statements { get; }
 
@@ -14,8 +15,16 @@ internal class ElseStatement : Statement
         Statements = statements;
     }
 
-    public override void Evaluate(InterpreterExecutionContext context)
+    public override StatementResult Evaluate(InterpreterExecutionContext context)
     {
-        throw new System.NotImplementedException();
+        StatementResult statementResult = StatementResult.OkResult();
+        foreach (var statement in Statements)
+        {
+            statementResult = statement.Evaluate(context);
+
+            if (!statementResult.IsOk()) return statementResult;
+        }
+
+        return statementResult;
     }
 }

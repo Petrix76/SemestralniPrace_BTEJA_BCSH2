@@ -1,8 +1,8 @@
-﻿using Interpreter.Context;
+﻿using TypeScriptInterpreter.Context;
 
-namespace Interpreter.LangParser.Expressions;
+namespace TypeScriptInterpreter.LangParser.Expressions;
 
 public abstract class Expression : Evaluatable
 {
-    public abstract double Evaluate(InterpreterExecutionContext context);
+    public abstract object Evaluate(InterpreterExecutionContext context);
 }
