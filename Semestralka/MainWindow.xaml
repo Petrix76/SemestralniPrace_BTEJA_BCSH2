@@ -14,7 +14,7 @@
             <TextBox AcceptsReturn="True" x:Name="CodeTextBox" TextWrapping="Wrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontSize="20"/>
         </ScrollViewer>
         <ScrollViewer Focusable="False" Margin="102,351,10,10">
-            <TextBox AcceptsReturn="True" x:Name="ConsoleTextBox" TextWrapping="Wrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontSize="20"/>
+            <TextBox AcceptsReturn="True" x:Name="ConsoleTextBox" TextWrapping="Wrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontSize="20" Height="155" KeyUp="ConsoleTextBoxKeyUp"/>
         </ScrollViewer>
 
     </Grid>

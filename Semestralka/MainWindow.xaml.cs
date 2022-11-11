@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,8 @@ namespace Semestralka
     /// </summary>
     public partial class MainWindow : Window
     {
+        public bool ReadingConsole { get; set; } = false;
+        public string ReadInput { get; set; } = "";
         public string? OpenedFile { get; set; } = null;
         public TypeScriptInterpreter.Interpreter Interpreter { get; } = new TypeScriptInterpreter.Interpreter();
         public MainWindow()
@@ -34,17 +37,14 @@ namespace Semestralka
 
         private void WriteLine(string text)
         {
-            ConsoleTextBox.Text += text + Environment.NewLine;
+            Dispatcher.Invoke(() => ConsoleTextBox.Text += text + Environment.NewLine);
         }
 
         private string? ReadLine()
         {
-            ConsoleReadDialog consoleReadDialog = new ConsoleReadDialog();
-            bool? dialogResult = consoleReadDialog.ShowDialog();
-            if (dialogResult == null || dialogResult == false) return "";
-            string result = consoleReadDialog.Result;
-            WriteLine(result);
-            return result;
+            ReadingConsole = true;
+            while (ReadingConsole) ;
+            return ReadInput;
         }
 
         private void SaveButtonClicked(object sender, RoutedEventArgs e)
@@ -62,7 +62,12 @@ namespace Semestralka
 
         private void RunButtonClicked(object sender, RoutedEventArgs e)
         {
-            Interpreter.Interpret(OpenedFile);
+            Thread thread = new Thread(() =>
+            {
+                Interpreter.Interpret(OpenedFile);
+            });
+
+            thread.Start();
         }
 
         private void LoadButtonClicked(object sender, RoutedEventArgs e)
@@ -86,6 +91,20 @@ namespace Semestralka
         private void HandleLoadWithoutSave()
         {
             
+        }
+
+        private void ConsoleTextBoxKeyUp(object sender, KeyEventArgs e)
+        {
+            if (ReadingConsole)
+            {
+                if (e.Key == Key.Enter)
+                {
+                    ReadInput += Environment.NewLine;
+                    ReadingConsole = false;
+                }
+
+                ReadInput += e.Key.ToString();
+            }
         }
     }
 }
