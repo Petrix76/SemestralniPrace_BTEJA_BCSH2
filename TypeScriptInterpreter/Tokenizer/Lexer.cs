@@ -8,7 +8,6 @@ public class Lexer
     private Dictionary<string, TokenType> keywords = new Dictionary<string, TokenType>()
     {
         { "ident", TokenType.IDENT },
-        { "number", TokenType.NUMBER },
         { "let", TokenType.LET },
         { "function", TokenType.FUNCTION },
         { "if", TokenType.IF },

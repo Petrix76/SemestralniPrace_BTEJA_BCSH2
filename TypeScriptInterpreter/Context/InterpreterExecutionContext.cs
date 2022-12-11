@@ -23,7 +23,14 @@ public class InterpreterExecutionContext
 
     public InterpreterExecutionContext(InterpreterExecutionContext context)
     {
-        GlobalContext = context;
+        if (context.GlobalContext == null)
+        {
+            GlobalContext = context;
+        } else
+        {
+            GlobalContext = context.GlobalContext;
+        }
+        
         Variables = new Variables();
     }
 

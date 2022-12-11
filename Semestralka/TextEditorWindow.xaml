@@ -1,0 +1,32 @@
+﻿<Window x:Class="Semestralka.TextEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Semestralka"
+        mc:Ignorable="d"
+        Title="TypeScript text editor" Height="558" Width="814" Closing="WindowClosing">
+    <Grid Focusable="False" Background="#FF373737">
+        <Button x:Name="SaveButton" Content="Uložit" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Height="36" Width="120" Foreground="White" Background="#FF8E3131"
+                Command="{Binding SaveCommand}"/>
+        <Button x:Name="LoadButton" Content="Načíst" HorizontalAlignment="Left" Margin="10,113,0,0" Width="120" Height="36" VerticalAlignment="Top" Background="#FF8E3131" Foreground="White"
+                Command="{Binding LoadCommand}"/>
+        <Button x:Name="RunButton" Content="Spustit" Margin="10,0,0,160" Height="36" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120" Background="#FF8E3131" Foreground="White"
+                Command="{Binding RunCommand}"/>
+        <TextBox AcceptsReturn="True" x:Name="CodeTextBox" TextWrapping="Wrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontSize="20" Margin="149,31,10,160" KeyUp="CodeTextboxChanged" Foreground="White" Background="#FF212121"
+                 Text="{Binding OpenedFileContext, Mode=TwoWay}"/>
+        <TextBox AcceptsReturn="True" x:Name="ConsoleTextBox" TextWrapping="Wrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontSize="20" Margin="149,0,10,45" Background="#FF212121" Foreground="White"
+                 Text="{Binding ConsoleContext, Mode=TwoWay}" Height="110" VerticalAlignment="Bottom"/>
+        <Button x:Name="SaveAsButton" Content="Uložit jako" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Height="36" Width="120" Background="#FF8E3131" Foreground="White"
+                Command="{Binding SaveAsCommand}"/>
+        <Label Content="Otevřený soubor:" HorizontalAlignment="Left" Margin="10,0,0,0" Width="120" Height="26" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Čtení z konzole: " Margin="382,0,0,1" Foreground="White" RenderTransformOrigin="0.595,1.355" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="123"/>
+        <Label x:Name="OpenedFileLabel" HorizontalAlignment="Left" Margin="135,0,0,0" RenderTransformOrigin="-0.095,0.047" Width="655" Height="26" VerticalAlignment="Top" Foreground="White"
+               Content="{Binding OpenedFile}"/>
+        <TextBox IsReadOnly="{Binding DisabledConsole}" AcceptsReturn="True" x:Name="ConsoleInput" TextWrapping="Wrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" FontSize="20" Margin="525,0,10,3" Background="#FF212121" Foreground="White" Height="37" VerticalAlignment="Bottom" Text="{Binding ConsoleRead, Mode=TwoWay}">
+            <TextBox.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding EndReadCommand}" CommandParameter="{Binding ElementName=ConsoleInput, Path=Text}"/>
+            </TextBox.InputBindings>
+        </TextBox>
+    </Grid>
+</Window>

@@ -60,7 +60,7 @@ public class Function
 
         if (functionResult.Expr is null) throw new ExecutionException("ups something went wrong.");
 
-        object returnValue = functionResult.Expr.Evaluate(context);
+        object returnValue = functionResult.Expr.Evaluate(newContext);
 
         if (returnValue.GetType() == typeof(string) && ReturnType == FunctionReturnType.STRING)
         {
