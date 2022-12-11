@@ -29,17 +29,5 @@ namespace Semestralka
             InitializeComponent();
             DataContext = App.Current.MainVM;
         }
-
-        private void ConsoleTextBoxKeyUp(object sender, KeyEventArgs e)
-        {
-        }
-
-        private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-        }
-
-        private void CodeTextboxChanged(object sender, KeyEventArgs e)
-        {
-        }
     }
 }
