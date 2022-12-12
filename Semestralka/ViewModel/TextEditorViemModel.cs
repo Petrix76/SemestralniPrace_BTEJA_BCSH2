@@ -88,7 +88,7 @@ public partial class TextEditorViemModel : ObservableObject
     {
         if (OpenedFile != null)
         {
-            ConsoleContext = ">>>> program started";
+            ConsoleContext = $">>>> program started{Environment.NewLine}";
             codeThread = new Thread(() =>
             {
                 interpreter.Interpret(OpenedFile);
@@ -136,11 +136,10 @@ public partial class TextEditorViemModel : ObservableObject
 
     private string? ReadLine()
     {
-        ConsoleContext += Environment.NewLine;
         ConsoleContext += ">>>> reading console";
         DisabledConsole = false;
         while (!DisabledConsole) ;
-        ConsoleContext += $"{Environment.NewLine}>>>> reading console result: ";
+        ConsoleContext += $"{Environment.NewLine}>>>> reading console result: {readInput}";
 
         ConsoleRead = "";
         OnPropertyChanged(nameof(ConsoleRead));

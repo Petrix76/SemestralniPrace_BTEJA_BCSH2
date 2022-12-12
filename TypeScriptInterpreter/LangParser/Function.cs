@@ -56,6 +56,11 @@ public class Function
             return new object();
         }
 
+        if (functionResult.FunctionResultEnum == FunctionResultEnum.RETURNED_VALUE && ReturnType == FunctionReturnType.VOID)
+        {
+            throw new ExecutionException("Cannot return value from void function");
+        }
+
         CheckBadReturn(functionResult);
 
         if (functionResult.Expr is null) throw new ExecutionException("ups something went wrong.");

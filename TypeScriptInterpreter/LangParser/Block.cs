@@ -25,7 +25,9 @@ public class Block
         {
             StatementResult result = statement.Evaluate(context);
 
-            if (!result.IsOk() && result.StatementResultEnum != StatementResultEnum.RETURN) throw new ExecutionException("Cannot use break or continue out of loop"); 
+            if (result.StatementResultEnum == StatementResultEnum.RETURN) throw new ExecutionException("Cannot return value in program block");
+            if (result.StatementResultEnum == StatementResultEnum.CONTINUE || result.StatementResultEnum == StatementResultEnum.BREAK) throw new ExecutionException("Cannot use break or continue out of loop");
+            if (result.StatementResultEnum == StatementResultEnum.EMPTY_RETURN) return;
         }
     }
 

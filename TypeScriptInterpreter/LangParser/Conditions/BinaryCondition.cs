@@ -27,7 +27,7 @@ public class BinaryCondition : Condition
             case TokenType.GREATER: return ResolveGreater(left, right);
             case TokenType.LESS_EQUALS: return ResolveLessEqual(left, right);
             case TokenType.GREATER_EQUALS: return ResolveGreaterEqual(left, right);
-            case TokenType.DOUBLE_EQUALS: return Left.Evaluate(context) == Right.Evaluate(context);
+            case TokenType.DOUBLE_EQUALS: return left.Equals(right);
             default: throw new ParserException("Wrong token type.");
         }
     }

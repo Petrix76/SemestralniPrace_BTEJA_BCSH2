@@ -27,7 +27,7 @@ public class WhileStatement : Statement
 
                 if (result.StatementResultEnum == Results.ResultEnums.StatementResultEnum.CONTINUE) break;
                 if (result.StatementResultEnum == Results.ResultEnums.StatementResultEnum.BREAK) return StatementResult.OkResult();
-                if (result.StatementResultEnum == Results.ResultEnums.StatementResultEnum.BREAK) return result;
+                if (result.StatementResultEnum == Results.ResultEnums.StatementResultEnum.RETURN || result.StatementResultEnum == Results.ResultEnums.StatementResultEnum.EMPTY_RETURN) return result;
             }
 
             if (result.StatementResultEnum == Results.ResultEnums.StatementResultEnum.CONTINUE) continue;
